@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover" />
+
+  <!-- JQuery -->
+  <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="fontawesome-5.15.1/css/all.css" />
+
+  <!-- Cordova -->
+  <!--
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"/>
+  -->
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <meta name="color-scheme" content="light dark" />
+  <link rel="stylesheet" href="css/index.css" />
+
+  <title>To-Do App</title>
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.svg">
+</head>
+
+<body id="body">
+  <div id="app" class="app">
+    <header id="header">
+      <button class="toggleMode-button" onclick="toggleDarkLightMode()"><i id="toggleMode-icon" class="far fa-sun"></i></button>
+      <button class="reload-button" onclick="location.reload()"><i class="fas fa-redo"></i></button>
+      <div class="title-div">
+        <h1 class="title">To-Do App</h1>
+      </div>
+
+      <div class="button-group">
+        <span>
+          <button id="button-todo" class="button" onclick="getTaskToDo()"><span class="button-item">Aufgabenliste</span></button>
+          <button id="button-market" class="button" onclick="getTaskMarket()"><span class="button-item">Einkaufsliste</span></button>
+        </span>
+      </div>
+
+      <div id="date-time" style="display:none">
+        <form>
+          <i id="calendar-check" data-checked="false" onclick="activateCalendar()" class="input-check far fa-square"></i>
+          <input id="calendar" class="input-date linethrough" type="date">
+          <i id="time-check" data-checked="false" onclick="activateTime()" class="input-check far fa-square"></i>
+          <input id="time" class="input-time linethrough" type="time">
+        </form>
+      </div>
+
+      <div id="amount" style="display:none">
+        <div class="input-amount-buttongroup">
+          <button class="input-amount-button input-amount-button-left" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="input-icon fas fa-minus"></i></button>
+          <input id="input-amount" class="input-amount" type="number" placeholder="1" min="0">
+          <button class="input-amount-button input-amount-button-right" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="input-icon fas fa-plus"></i></button>
+        </div>
+        <div class="selectdiv">
+          <select id="unit" size=1 class="input-unit">
+            <option></option>
+            <optgroup label="Gramm">
+              <option> g </option>
+              <option> kg </option>
+            </optgroup>
+            <optgroup label="Liter">
+             <option> mL </option>
+             <option> L </option>
+            </optgroup>
+            <optgroup label="Verpackung">
+              <option> Stk. </option>
+              <option> Pack. </option>
+            </optgroup>
+          </select>
+      </div>
+      </div>
+
+      <div id="input" style="display:none" class="input">
+        <input id="todo-input" class="input-text" onKeyDown="if(event.keyCode==13) addTask();" placeholder="Eingabe">
+        <span class="input-button-span">
+         <button class="input-button" onclick="addTask()"><i class="input-icon fas fa-plus"></i></button>
+        </span>
+      </div>
+
+      <div id="todo-buttons" style="display:none">
+        <div class="dropdown">
+          <button onclick="getInputField(this)" class="dropdown-button"><i id="todo-input-icon" class="fas fa-plus"></i></button>
+        </div>
+        <div class="dropdown">
+          <button onclick="getDateTimeField(this)" class="dropdown-button"><i id="calendar-icon" class="fas fa-calendar-plus"></i></button>
+        </div>
+        <div id="sort-todo" class="dropdown">
+          <button class="dropdown-button"><i class="fas fa-sort-amount-up"></i></button>
+           <div class="dropdown-content">
+             <span class="dropdown-header">Sortieren nach:</span>
+             <a class="dropdown-content-item" onclick="sortByCreatedDate()">Erstelldatum</a>
+             <a class="dropdown-content-item" onclick="sortByDueDate()">Fälligkeitsdatum</a>
+             <a class="dropdown-content-item" onclick="sortByFinished()">Abgeschlossen</a>
+           </div>
+         </div>
+         <div class="dropdown">
+           <button class="dropdown-button"><i class="fas fa-trash-alt"></i></button>
+           <div class="dropdown-content">
+             <span class="dropdown-header">Löschen:</span>
+             <a class="dropdown-content-item" onclick="deleteFinishedTasks()">Abgeschlossene</a>
+             <a class="dropdown-content-item" onclick="deleteList()">Ganze Liste</a>
+           </div>
+         </div>
+      </div>
+
+      <div id="market-buttons" style="display:none">
+        <div class="dropdown">
+          <button onclick="getInputField(this)" class="dropdown-button"><i id="market-input-icon" class="fas fa-plus"></i></button>
+        </div>
+        <div class="dropdown">
+          <button onclick="getAmountField(this)" class="dropdown-button"><i id="amount-icon" class="fas fa-cart-plus"></i></button>
+        </div>
+        <div id="sort-todo" class="dropdown">
+          <button class="dropdown-button"><i class="fas fa-sort-amount-up"></i></button>
+           <div class="dropdown-content">
+             <span class="dropdown-header">Sortieren nach:</span>
+             <a class="dropdown-content-item" onclick="sortByCreatedDate()">Erstelldatum</a>
+             <a class="dropdown-content-item" onclick="sortByFinished()">Eingekauft</a>
+           </div>
+         </div>
+         <div class="dropdown">
+           <button class="dropdown-button"><i class="fas fa-trash-alt"></i></button>
+           <div class="dropdown-content">
+             <span class="dropdown-header">Löschen:</span>
+             <a class="dropdown-content-item" onclick="deleteFinishedTasks()">Eingekaufte</a>
+             <a class="dropdown-content-item" onclick="deleteList()">Ganze Liste</a>
+           </div>
+         </div>
+      </div>
+
+    </header>
+
+    <main id="main">
+  
+      <div id="todo" class="task-div" style="display:none">
+        
+        <!--
+        <div class="task-item" onclick="taskFocus(this)">
+
+          <div class="task-item-addition">Datum<br>Uhrzeit</div>
+          <div class="task-item-text">Aufgaben</div>
+          
+          <div class="task-button-group" style="display: none;">
+            <button class="task-button" style="border-bottom-left-radius: 0.5em;" onclick="finishTask(this)"><i class="task-icon far fa-calendar-check"></i></button>
+            <button class="task-button" style="border-bottom-right-radius: 0.5em;" onclick="deleteTask(this)"><i class="task-icon far fa-trash-alt"></i></button>
+          </div>
+        </div>
+        -->
+      </div>
+
+      <div id="market" class="task-div" style="display:none">
+
+        <!--
+        <div class="task-item" onclick="taskFocus(this)">
+
+          <div class="task-item-addition">Menge & Einheit</div>
+          <div class="task-item-text">Einkaufen</div>
+          
+          <div class="task-button-group" style="display: none;">
+            <button class="task-button" style="border-bottom-left-radius: 0.5em;" onclick="finishTask(this)"><i class="task-icon far fa-calendar-check"></i></button>
+            <button class="task-button" style="border-bottom-right-radius: 0.5em;" onclick="deleteTask(this)"><i class="task-icon far fa-trash-alt"></i></button>
+          </div>
+        </div>
+        -->
+      </div>
+    </main>
+
+    <footer id="footer">
+      <div class="footer-item">&copy; To-Do App by Enrique Specht & Jannik Hegelbacher</div>
+    </footer>
+  </div>
+  <script src="cordova.js"></script>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
