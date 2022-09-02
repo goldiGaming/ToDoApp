@@ -1,0 +1,618 @@
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html, body {
+  height: 100%;
+  min-height: 100%;
+  overflow: hidden;
+}
+
+body {
+  -webkit-touch-callout: none;
+  -webkit-text-size-adjust: none;
+  font-family: system-ui, -apple-system, -apple-system-font, "Segoe UI",
+    "Roboto", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px)
+    env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  width: 100%;
+}
+
+.app {
+  text-align: center;
+  height: 100%;
+  position: relative;
+}
+
+header {
+  height: 8em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  border-bottom-right-radius: 0.5em;
+  border-bottom-left-radius: 0.5em;
+  z-index: 1;
+}
+
+main {
+  top: 8em;
+  height: calc(100vh - 11em);
+  position: fixed;
+  left: 0;
+  width: 100vw;
+  overflow-y: auto;
+}
+
+footer {
+  height: 3em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  border-top-right-radius: 1em;
+  border-top-left-radius: 1em;
+}
+
+.title-div {
+  width: inherit;
+  padding: 1.25em 0 1.25em 0;
+}
+
+.toggleMode-button {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  outline: none;
+  padding: 0.5em;
+  border-radius: 0.25em;
+}
+
+.reload-button {
+  position: absolute;
+  left: 1em;
+  top: 2em;
+  outline: none;
+  padding: 0.5em;
+  border-radius: 0.25em;
+}
+
+.title {
+  font-size: 2em;
+  margin: 0;
+}
+
+.button-group {
+  width: inherit;
+  margin: 0;
+  margin-bottom: 4em;
+  padding: 0;
+}
+
+.button {
+  width: 50%;
+  display: block;
+  float: left;
+  padding: 1em;
+  outline: none;
+}
+
+.input-icon {
+  font-size: 1.5em;
+}
+
+.input {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.input-check {
+  font-size: 1.6em;
+  margin-top: 0.3em;
+  margin-right: -1.5em;
+  margin-left: 0.45em;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.input-date {
+	width: 40%;
+  max-width: 10em;
+  padding: 0.5em;
+	height: 0.5em;
+  font-size: 1.5em;
+  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  outline: none;
+  margin: 0;
+  vertical-align: top;
+  margin-bottom: 0.3em;
+  padding-left: 1.75em;
+  position: relative;
+  z-index: 1;
+}
+
+.linethrough {
+  text-decoration: line-through;
+}
+
+.linethrough::-webkit-datetime-edit-fields-wrapper {
+  text-decoration: line-through;
+}
+
+.input-date::-webkit-calendar-picker-indicator {
+  background: var(--calendar-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.5em;
+}
+
+.input-time::-webkit-calendar-picker-indicator {
+  background: var(--clock-icon);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.2em;
+}
+
+.input-time {
+	width: 25%;
+  max-width: 7em;
+  padding: 0.5em;
+	height: 0.5em;
+  font-size: 1.5em;
+  border-bottom-right-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+  outline: none;
+  margin: 0;
+  vertical-align: top;
+  padding-left: 1.75em;
+  position: relative;
+  z-index: 1;
+}
+
+.input-amount-buttongroup {
+  display: inline;
+  position: relative;
+}
+
+.input-amount {
+	width: 20%;
+  padding: 0.5em;
+	height: 0.5em;
+  font-size: 1.5em;
+  outline: none;
+  margin: 0;
+  margin-bottom: 0.3em;
+  display: inline-flex;
+  vertical-align: top;
+}
+
+.input-amount-button {
+  outline: none;
+  align-items: center;
+  justify-content: center;
+  width: 3.1em;
+  height: 3.1em;
+  cursor: pointer;
+  position: relative;
+  vertical-align: top;
+}
+
+.input-amount-button-left {
+  border-bottom-left-radius: 0.5em;
+  border-top-left-radius: 0.5em;
+  margin-right: -0.4em;
+}
+
+.input-amount-button-right {
+  margin-left: -0.4em;
+}
+
+.input-amount::-webkit-inner-spin-button, .input-amount::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+
+.selectdiv {
+  display: inline;
+  width: 30%;
+}
+
+.selectdiv:after {
+  content: '<>';
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+  margin-top: 0.5em;
+  margin-left: -2em;
+  padding: 0 0 2px;
+  border-bottom: 1px solid #999;
+  position: absolute;
+  pointer-events: none;
+}
+
+.input-unit {
+	width: 30%;
+  padding: 0em;
+	height: 1.7em;
+  font-size: 1.5em;
+  outline: none;
+  margin: 0;
+  vertical-align: top;
+  border-bottom-right-radius: 0.3em;
+  border-top-right-radius: 0.3em;
+  text-indent: 0.5em;
+}
+
+.input-unit {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input-unit::-ms-expand {
+  display: none;
+}
+
+.input-text {
+	float: left;
+	width: calc(100% - 4em);
+  padding: 0.5em;
+	height: 1em;
+  font-size: 1.5em;
+  border-bottom-left-radius: 0.3em;
+  border-top-left-radius: 0.3em;
+  outline: none;
+  margin: 0;
+}
+
+.input-button-span {
+  width: 4.2em;
+}
+
+.input-button {
+  float: right;
+  outline: none !important;
+  height: 4em;
+  width: inherit;
+  border-bottom-right-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+  padding: 0;
+}
+
+.button-item {
+  font-size: 1.5em;
+}
+
+#todo-buttons, #market-buttons {
+  margin-top: -1em;
+}
+
+.dropdown {
+  position: relative;
+  display: block;
+  margin: 0.5em 1em 0.5em 1em;
+  z-index: 1;
+  float: left;
+}
+
+.dropdown-button {
+  width: 1.5em;
+  height: 1.5em;
+  font-size: 1.25em;
+  padding: 0;
+  cursor: pointer;
+  outline: none !important;
+}
+
+.dropdown-header {
+  font-weight: 500;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  width: 9em;
+  z-index: 2;
+  left: 0;
+}
+
+.dropdown-content-item {
+  text-decoration: none;
+  display: block;
+  padding: 0.5em 0.5em;
+  cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.task-div {
+  width: calc(100% - 6em);
+  margin: 3.5em 3em 0 3em;
+  height: auto;
+}
+
+.task-item {
+  padding: 1em;
+  border-radius: 0.5em;
+  margin-bottom: 0.5em;
+  text-align: center;
+  overflow: hidden;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  position: relative;
+}
+
+.task-item-addition {
+  min-width: 7em;
+  margin-left: -1em;
+}
+
+.task-item-text {
+  margin-left: 0.5em;
+  width: 100%;
+}
+
+.task-button-group {
+  margin: 0.5em -1em 0 -1em;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.task-button {
+  width: 50%;
+  display: block;
+  float: left;
+  padding: 0.5em;
+  outline: none;
+}
+
+.task-icon {
+  font-size: 1.5em;
+}
+
+.footer-item {
+  font-size: 0.8em;
+  margin-top: 1.2em;
+}
+
+/* Colors */
+
+:root {
+  --header-footer-color: #212121;
+  --bg-color: #303030;
+  --primary-color: #424242;
+  --secondary-color: #2b2b2b;
+  --tertiary-color: #525252;
+  --font-color: white;
+  --border-color: black;
+  --box-shadow-color: rgba(0, 0, 0, 1);
+  --calendar-icon: url("../img/calendar\ darkmode.svg");
+  --clock-icon: url("../img/clock\ darkmode.svg");
+}
+
+[data-theme="light"] {
+  --header-footer-color: #e5e9f0;
+  --bg-color: #fff;
+  --primary-color: #eceff0;
+  --secondary-color: #d7dadf;
+  --tertiary-color: #f0f0f0;
+  --font-color: rgb(83, 87, 100);
+  --border-color: rgb(204, 205, 212);
+  --box-shadow-color: rgb(94, 94, 94);
+  --calendar-icon: url("../img/calendar\ whitemode.svg");
+  --clock-icon: url("../img/clock\ whitemode.svg");
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--font-color);
+}
+
+header {
+  background-color: var(--header-footer-color);
+  box-shadow: 0 0.5em 0.5em var(--box-shadow-color);
+}
+
+main {
+  background-color: var(--bg-color);
+}
+
+footer {
+  background-color: var(--header-footer-color);
+  box-shadow: 0 -0.3em 0.5em var(--box-shadow-color);
+}
+
+.toggleMode-button {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  color: var(--font-color);
+}
+
+.toggleMode-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.reload-button {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  color: var(--font-color);
+}
+
+.reload-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.button {
+  background-color: var(--primary-color);
+  border: 0.2em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  color: var(--font-color);
+}
+
+.button:hover {
+  background-color: var(--secondary-color) !important;
+}
+
+.input-check {
+  color: var(--font-color);
+}
+
+.input-check:hover {
+  color: var(--font-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-date {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-date:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-time {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-time:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-amount-button {
+  background-color: var(--primary-color);
+  border: 0.15em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-amount-button:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-amount {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-amount:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-unit {
+  background-color: var(--primary-color) !important;
+  border: 0.1em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-unit:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-text {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-text:focus {
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  border: 0.1em outset var(--border-color);
+}
+
+.input-text:hover {
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  border: 0.1em outset var(--border-color);
+}
+
+.input-button {
+  background-color: var(--primary-color);
+  border: 0.15em outset var(--border-color);
+  color: var(--font-color);
+}
+
+.input-button:hover {
+  color: var(--font-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.input-button:focus {
+  color: var(--font-color);
+  box-shadow: 0 -0.05em 0.1em var(--box-shadow-color);
+  border: 0.1em outset var(--border-color);
+}
+
+.dropdown-button {
+  background-color: var(--primary-color);
+  border: 0.05em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  color: var(--font-color);
+}
+
+.dropdown-content {
+  background-color: var(--bg-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.dropdown:hover .dropdown-button {
+  background-color: var(--secondary-color);
+}
+
+.dropdown-content-item:hover {
+  background-color: var(--secondary-color);
+}
+
+.task-item {
+  background-color: var(--tertiary-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+}
+
+.task-item-addition {
+  border-right: 0.1em outset var(--border-color);
+}
+
+.task-button {
+  background-color: var(--primary-color);
+  border: 0.1em outset var(--border-color);
+  box-shadow: 0 -0.05em 0.5em var(--box-shadow-color);
+  color: var(--font-color);
+}
+
+.task-button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width: 400px) {
+  .app {
+    background-position: left center;
+  }
+}
